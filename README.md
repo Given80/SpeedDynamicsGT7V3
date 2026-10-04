@@ -1,15 +1,20 @@
-[README.md](https://github.com/user-attachments/files/33030870/README.md)
-# Speed Dynamics GT7 – Final
+[README.txt](https://github.com/user-attachments/files/33031159/README.txt)
+SPEED DYNAMICS GT7 – V2
 
-Enthält die vollständige aktuelle HTML-/Telemetry-Version.
+Enthalten:
+- SpeedDynamicsGT7.py: GT7 UDP Bridge
+- web/index.html: Dashboard
 
-Änderungen:
-- Speed Dynamics Logo als echte Grafik
-- GT3-Fahrzeug-Silhouette als Grafik
-- FUEL zeigt Liter und verbleibende Runden direkt nebeneinander
-- verbleibende FUEL-Runden werden aus dem bisher gemessenen Verbrauch pro Runde berechnet
-- Runden-Delta bleibt dynamisch grün/rot/neutral
-- RPM-Balken mit konfigurierbaren 4 Farbbereichen
-- responsive Darstellung für PC und iPhone
-- echte `/api`-Live-Telemetrie bleibt erhalten
-- GT7 Packet C mit Fallback auf Packet A
+Wichtig:
+- Python benoetigt pycryptodome.
+- Die Dashboard-Vorschau ist selbststaendig und enthaelt eine eingebettete GT3-Silhouette, damit keine Bilddateien in der Vorschau fehlen.
+- Die Live-Version erwartet die Webdatei unter web/index.html.
+
+Delta:
+- Referenz ist eine voll aufgezeichnete Runde.
+- Vergleich erfolgt anhand der kumulierten Weltposition/Distanz, nicht gegen die komplette Best-Lap-Zeit.
+- Teilrunden werden nicht als Referenz akzeptiert.
+
+Fuel:
+- GT7 liefert den Fuel-Level in Litern.
+- Rundenreichweite wird aus dem gemessenen Verbrauch abgeschlossener Runden geschaetzt.
