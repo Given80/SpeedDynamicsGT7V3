@@ -2,6 +2,7 @@ import json, os, socket, struct, sys, threading, time, bisect
 from pathlib import Path
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from Crypto.Cipher import Salsa20
+import tkinter as tk
 from tkinter import messagebox
 
 APP="Speed Dynamics GT7"
