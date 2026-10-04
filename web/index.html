@@ -7,218 +7,232 @@
 <title>Speed Dynamics GT7</title>
 <style>
 :root{
-  --bg:#050608; --panel:#0d1014; --panel2:#11151a; --line:#3a4149;
-  --gold:#f2b900; --gold2:#ffd84d; --text:#f4f5f6; --muted:#8e969f;
-  --green:#00e676; --red:#ff4d4d; --blue:#38a8ff; --purple:#a47cff;
-  --radius:18px; --gap:12px;
+  --bg:#050608;--panel:#0d1014;--panel2:#11151a;--line:#3a4149;
+  --gold:#f2b900;--text:#f4f5f6;--muted:#8e969f;
+  --green:#00e676;--red:#ff4d4d;--gap:12px;--radius:18px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:
  radial-gradient(circle at 15% 0%,rgba(242,185,0,.07),transparent 28%),
  linear-gradient(145deg,#030405,#0a0d11 55%,#050608);
  color:var(--text);font-family:Inter,Segoe UI,Roboto,Arial,sans-serif}
-body{padding:clamp(8px,1.5vw,24px)}
+body{padding:clamp(7px,1.2vw,18px)}
 .app{max-width:1500px;margin:auto}
-.header{display:flex;align-items:center;justify-content:space-between;gap:12px;
- padding:4px 4px 14px;border-bottom:1px solid #252a30;margin-bottom:var(--gap)}
-.brand{font-size:clamp(22px,3vw,42px);font-weight:900;letter-spacing:.02em;
- color:var(--gold);text-shadow:0 0 18px rgba(242,185,0,.18)}
-.subtitle{font-size:clamp(9px,1.1vw,14px);font-weight:700;color:#aeb4ba;letter-spacing:.16em}
-.live{display:flex;align-items:center;gap:7px;font-weight:800;font-size:clamp(10px,1.1vw,15px)}
-.dot{width:10px;height:10px;border-radius:50%;background:#666;box-shadow:0 0 0 3px rgba(255,255,255,.04)}
-.live.on .dot{background:var(--green);box-shadow:0 0 14px rgba(0,230,118,.75)}
-.live.off .dot{background:var(--red)}
+.topwrap{position:relative}
+.top{
+  min-height:clamp(92px,11vw,155px);display:grid;
+  grid-template-columns:1.35fr 1fr .42fr;align-items:center;gap:12px;
+  padding:10px 18px;border:1px solid #2f353b;border-radius:18px;
+  background:linear-gradient(120deg,#030405,#0b0e12);
+  margin-bottom:var(--gap);overflow:hidden;
+}
+.logoImg{display:block;width:min(100%,520px);max-height:80px;height:auto;object-fit:contain;object-position:left center}
+.sub{font-size:clamp(8px,1vw,14px);font-weight:800;letter-spacing:.14em;color:#d8dadd;margin-top:2px}
+.car{height:100%;display:flex;align-items:center;justify-content:center}
+.car img{width:100%;max-width:440px;height:auto;object-fit:contain}
+.status{height:100%;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:900;font-size:clamp(14px,1.6vw,24px)}
+.dot{width:12px;height:12px;border-radius:50%;background:#ff3b30;box-shadow:0 0 12px rgba(255,59,48,.5)}
+.status.on .dot{background:#00e676;box-shadow:0 0 14px rgba(0,230,118,.8)}
+.status.off .dot{background:#ff3b30}
+.gt7{font-style:italic;font-size:clamp(20px,3vw,42px);font-weight:950;margin-left:6px}
+.gt7 b{color:#f2b900}.gt7 span{color:#f4f5f6}
+.settings{
+ position:absolute;right:10px;top:10px;width:38px;height:38px;border:1px solid #777;
+ border-radius:10px;background:#0b0d10;color:#fff;font-size:21px;cursor:pointer
+}
 .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap)}
-.card{min-width:0;background:
- linear-gradient(145deg,rgba(255,255,255,.035),transparent 38%),
+.card{
+ min-width:0;background:linear-gradient(145deg,rgba(255,255,255,.035),transparent 38%),
  linear-gradient(135deg,var(--panel2),var(--panel));
- border:1px solid var(--line);border-radius:var(--radius);
- padding:clamp(12px,1.5vw,20px);box-shadow:0 8px 28px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.025)}
-.label{font-size:clamp(10px,1.15vw,15px);font-weight:800;color:#aeb4ba;letter-spacing:.04em}
-.value{font-size:clamp(30px,4vw,64px);line-height:1;font-weight:900;margin-top:6px;white-space:nowrap}
-.unit{font-size:clamp(10px,1vw,14px);font-weight:700;color:#9ca4ad;margin-top:5px}
-.speed{grid-column:span 4}.gear{grid-column:span 3}.rpm{grid-column:span 5}
-.small{grid-column:span 4}.fuel{grid-column:span 4}.position{grid-column:span 4}
-.delta{grid-column:span 8;min-height:190px;display:flex;flex-direction:column;justify-content:center}
-.current{grid-column:span 4}
-.lap{grid-column:span 3}.best{grid-column:span 3}.last{grid-column:span 3}.mode{grid-column:span 3}
-.bar{height:12px;background:#191e24;border:1px solid #333941;border-radius:99px;overflow:hidden;margin-top:12px}
+ border:1px solid var(--line);border-radius:var(--radius);padding:clamp(11px,1.35vw,19px);
+ box-shadow:0 8px 28px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.025)
+}
+.label{font-size:clamp(10px,1.05vw,15px);font-weight:900;color:#c1c6cb;letter-spacing:.04em}
+.value{font-size:clamp(29px,4vw,62px);line-height:1;font-weight:950;margin-top:7px;white-space:nowrap}
+.unit{font-size:clamp(9px,1vw,14px);font-weight:700;color:#9ca4ad;margin-top:5px}
+.speed{grid-column:span 3}.gear{grid-column:span 2}.rpm{grid-column:span 7}
+.small{grid-column:span 4}.fuel{grid-column:span 4}.position{grid-column:span 3}
+.delta{grid-column:span 6;min-height:185px}
+.current{grid-column:span 3}.lap{grid-column:span 3}.best{grid-column:span 3}.last{grid-column:span 3}
+.bar{height:12px;background:#191e24;border:1px solid #424950;border-radius:99px;overflow:hidden;margin-top:12px}
 .fill{height:100%;width:0%;transition:width .12s linear}
-.throttle .fill{background:linear-gradient(90deg,#00c853,#69f0ae)}
-.brake .fill{background:linear-gradient(90deg,#d50000,#ff5252)}
-.rpmbar .fill{background:linear-gradient(90deg,#ffd400 0 72%,#ff8f00 78%,#ff2f2f 100%)}
-.delta{transition:border-color .18s,box-shadow .18s,background .18s}
-.delta .value{font-size:clamp(52px,7vw,104px);letter-spacing:-.035em}
-.delta .state{font-size:clamp(12px,1.5vw,20px);font-weight:900;letter-spacing:.12em;margin-top:8px}
-.delta .ref{font-size:clamp(11px,1.1vw,15px);color:#aeb4ba;margin-top:10px}
-.delta.faster{border-color:rgba(0,230,118,.8);box-shadow:0 0 30px rgba(0,230,118,.12),inset 0 0 35px rgba(0,230,118,.05)}
-.delta.faster .value,.delta.faster .state{color:var(--green)}
-.delta.slower{border-color:rgba(255,77,77,.85);box-shadow:0 0 30px rgba(255,77,77,.12),inset 0 0 35px rgba(255,77,77,.05)}
-.delta.slower .value,.delta.slower .state{color:var(--red)}
-.delta.equal{border-color:#8f969d}
-.delta.equal .value,.delta.equal .state{color:#f0f2f4}
-.subtle{color:var(--muted)}
-.rpmline{display:flex;justify-content:space-between;align-items:end;margin-top:8px}
-.rpmnum{font-size:clamp(28px,3.3vw,52px);font-weight:900}
-.footer{color:#69717a;text-align:center;font-size:10px;padding:12px 0 2px}
+.throttle .fill{background:#00e676}.brake .fill{background:#ff3b30}
+.rpmbar .fill{background:#ffd400}
+.rpmline{display:flex;align-items:end;margin-top:7px}.rpmnum{font-size:clamp(28px,3.2vw,51px);font-weight:950}
+.delta{display:flex;flex-direction:column;justify-content:center;transition:.18s}
+.delta .value{font-size:clamp(45px,6vw,88px);letter-spacing:-.035em}
+.delta .state{font-size:clamp(12px,1.35vw,19px);font-weight:950;letter-spacing:.12em;margin-top:7px}
+.delta .ref{font-size:clamp(10px,1vw,14px);color:#aeb4ba;margin-top:9px}
+.delta.faster{border-color:#00e676;box-shadow:0 0 28px rgba(0,230,118,.12)}
+.delta.faster .value,.delta.faster .state{color:#00e676}
+.delta.slower{border-color:#ff4d4d;box-shadow:0 0 28px rgba(255,77,77,.12)}
+.delta.slower .value,.delta.slower .state{color:#ff4d4d}
+.delta.equal .value,.delta.equal .state{color:#f4f5f6}
+.fuelRow{display:flex;align-items:baseline;gap:22px;margin-top:7px;white-space:nowrap}
+.fuelRow .value{margin-top:0}
+.fuelLaps{font-size:clamp(15px,1.7vw,24px);font-weight:900;color:#f4f5f6}
+.panel{
+ display:none;position:fixed;z-index:50;right:14px;top:14px;width:min(390px,calc(100vw - 28px));
+ background:#0b0e12;border:1px solid #555d65;border-radius:16px;padding:18px;
+ box-shadow:0 18px 60px rgba(0,0,0,.65)
+}
+.panel.open{display:block}.panel h2{margin:0 0 14px;font-size:20px}
+.row{display:grid;grid-template-columns:1fr 100px;gap:10px;align-items:center;margin:10px 0}
+.row input[type=number]{width:100%;background:#161a1f;color:#fff;border:1px solid #48505a;border-radius:8px;padding:8px}
+.row input[type=color]{width:100%;height:38px;background:#111;border:1px solid #48505a;border-radius:8px}
+.panel button{border:0;border-radius:9px;padding:9px 12px;font-weight:800;cursor:pointer;background:#222a31;color:#fff}
+.panel .save{background:#f2b900;color:#111;margin-right:8px}
+.note{font-size:11px;color:#9ca4ad;line-height:1.4;margin-top:12px}
 @media(max-width:900px){
-  .speed{grid-column:span 6}.gear{grid-column:span 3}.rpm{grid-column:span 3}
-  .small{grid-column:span 6}.fuel{grid-column:span 6}.position{grid-column:span 6}
-  .delta{grid-column:span 8}.current{grid-column:span 4}
-  .lap,.best,.last,.mode{grid-column:span 6}
+ .top{grid-template-columns:1.3fr 1fr .55fr}.speed{grid-column:span 4}.gear{grid-column:span 2}.rpm{grid-column:span 6}
+ .small{grid-column:span 4}.fuel{grid-column:span 4}.position{grid-column:span 4}.delta{grid-column:span 8}.current{grid-column:span 4}
+ .lap,.best,.last{grid-column:span 4}
 }
 @media(max-width:600px){
-  body{padding:7px}
-  :root{--gap:8px;--radius:13px}
-  .header{padding-bottom:9px;margin-bottom:8px}
-  .brand{font-size:22px}.subtitle{font-size:8px;letter-spacing:.11em}
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .speed{grid-column:span 1}.gear{grid-column:span 1}.rpm{grid-column:span 2}
-  .small{grid-column:span 1}.fuel{grid-column:span 1}.position{grid-column:span 2}
-  .delta{grid-column:span 2;min-height:150px}.current{grid-column:span 2}
-  .lap,.best,.last,.mode{grid-column:span 1}
-  .card{padding:11px}
-  .value{font-size:clamp(28px,9vw,44px)}
-  .delta .value{font-size:clamp(44px,14vw,68px)}
-  .delta .state{font-size:12px}
-  .bar{height:9px;margin-top:8px}
-  .unit{font-size:9px}
-  .label{font-size:10px}
-  .footer{display:none}
-}
-@media(max-width:370px){
-  .brand{font-size:19px}.subtitle{display:none}
-  .value{font-size:27px}.delta .value{font-size:40px}
-  .card{padding:9px}
+ body{padding:6px}:root{--gap:8px;--radius:13px}
+ .top{min-height:78px;padding:6px 10px;grid-template-columns:1.4fr 1fr .45fr;gap:5px;border-radius:12px}
+ .logoImg{max-height:48px}.sub{font-size:6px;letter-spacing:.08em}.gt7{font-size:17px}
+ .status{font-size:10px;gap:4px}.dot{width:8px;height:8px}.car img{max-width:190px}
+ .settings{width:30px;height:30px;font-size:16px;right:6px;top:6px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .speed,.gear{grid-column:span 1}.rpm{grid-column:span 2}
+ .small,.fuel,.position,.lap,.best,.last{grid-column:span 1}
+ .delta,.current{grid-column:span 2}.delta{min-height:145px}
+ .fuelRow{gap:10px}.fuelLaps{font-size:13px}
+ .value{font-size:clamp(27px,9vw,43px)}.delta .value{font-size:clamp(42px,13vw,64px)}
+ .bar{height:9px;margin-top:8px}.label{font-size:9px}.unit{font-size:8px}.card{padding:10px}
 }
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="header">
-    <div>
-      <div class="brand">SPEED DYNAMICS</div>
-      <div class="subtitle">GT7 RACE ENGINEER · LIVE TELEMETRY</div>
-    </div>
-    <div id="live" class="live off"><span class="dot"></span><span id="liveText">OFFLINE</span></div>
+ <div class="topwrap">
+  <header class="top">
+   <div>
+    <img class="logoImg" src="speed_dynamics_logo.png" alt="Speed Dynamics">
+    <div class="sub">GT7 RACE ENGINEER · LIVE TELEMETRY</div>
+   </div>
+   <div class="car" aria-label="Fahrzeug-Silhouette"><img src="gt3_silhouette.png" alt="Fahrzeug-Silhouette"></div>
+   <div class="status off" id="live"><span class="dot"></span><span id="liveText">OFFLINE</span><div class="gt7"><span>GT</span><b>7</b></div></div>
   </header>
+  <button class="settings" id="settingsBtn" title="RPM-Einstellungen">⚙</button>
+ </div>
 
-  <main class="grid">
-    <section class="card speed">
-      <div class="label">SPEED</div><div id="speed" class="value">0.0</div><div class="unit">km/h</div>
-    </section>
-    <section class="card gear">
-      <div class="label">GEAR</div><div id="gear" class="value">N</div>
-    </section>
-    <section class="card rpm">
-      <div class="label">RPM</div>
-      <div class="rpmline"><div id="rpm" class="rpmnum">0</div></div>
-      <div class="bar rpmbar"><div id="rpmFill" class="fill"></div></div>
-    </section>
+ <main class="grid">
+  <section class="card speed"><div class="label">SPEED</div><div id="speed" class="value">0.0</div><div class="unit">km/h</div></section>
+  <section class="card gear"><div class="label">GEAR</div><div id="gear" class="value">N</div></section>
+  <section class="card rpm"><div class="label">RPM</div><div class="rpmline"><div id="rpm" class="rpmnum">0</div></div><div class="bar rpmbar"><div id="rpmFill" class="fill"></div></div></section>
 
-    <section class="card small throttle">
-      <div class="label">THROTTLE</div><div id="throttle" class="value">0%</div>
-      <div class="bar"><div id="throttleFill" class="fill"></div></div>
-    </section>
-    <section class="card small brake">
-      <div class="label">BRAKE</div><div id="brake" class="value">0%</div>
-      <div class="bar"><div id="brakeFill" class="fill"></div></div>
-    </section>
-    <section class="card fuel">
-      <div class="label">FUEL</div><div id="fuel" class="value">0.0</div><div id="fuelUnit" class="unit">Liter</div></section>
-    <section class="card position">
-      <div class="label">POSITION</div><div id="position" class="value">-/–</div></section>
+  <section class="card small throttle"><div class="label">THROTTLE</div><div id="throttle" class="value">0%</div><div class="bar"><div id="throttleFill" class="fill"></div></div></section>
+  <section class="card small brake"><div class="label">BRAKE</div><div id="brake" class="value">0%</div><div class="bar"><div id="brakeFill" class="fill"></div></div></section>
 
-    <section id="deltaCard" class="card delta equal">
-      <div class="label">RUNDEN-DELTA</div>
-      <div id="delta" class="value">0.000 s</div>
-      <div id="deltaState" class="state">KEINE REFERENZ</div>
-      <div class="ref">Referenz: <span id="reference">--:--.---</span></div>
-    </section>
-    <section class="card current">
-      <div class="label">AKTUELLE RUNDE</div><div id="currentLap" class="value">0:00.000</div></section>
+  <!-- Fuel and remaining laps are deliberately on the same row. -->
+  <section class="card fuel">
+   <div class="label">FUEL</div>
+   <div class="fuelRow"><div id="fuel" class="value">0.0 L</div><div id="fuelLaps" class="fuelLaps">– Runden</div></div>
+  </section>
 
-    <section class="card lap">
-      <div class="label">RUNDE</div><div id="lap" class="value">0/–</div></section>
-    <section class="card best">
-      <div class="label">BEST LAP</div><div id="bestLap" class="value">--:--.---</div></section>
-    <section class="card last">
-      <div class="label">LAST LAP</div><div id="lastLap" class="value">--:--.---</div></section>
-    <section class="card mode">
-      <div class="label">UDP-MODUS</div><div id="mode" class="value">–</div></section>
-  </main>
-  <div class="footer">Speed Dynamics GT7 · responsive dashboard</div>
+  <section class="card position"><div class="label">POSITION</div><div id="position" class="value">-/–</div></section>
+  <section id="deltaCard" class="card delta equal"><div class="label">RUNDEN-DELTA</div><div id="delta" class="value">0.000 s</div><div id="deltaState" class="state">KEINE REFERENZ</div><div class="ref">Referenz: <span id="reference">--:--.---</span></div></section>
+  <section class="card current"><div class="label">AKTUELLE RUNDE</div><div id="currentLap" class="value">0:00.000</div></section>
+
+  <section class="card lap"><div class="label">RUNDE</div><div id="lap" class="value">0/–</div></section>
+  <section class="card best"><div class="label">BEST LAP</div><div id="bestLap" class="value">--:--.---</div></section>
+  <section class="card last"><div class="label">LAST LAP</div><div id="lastLap" class="value">--:--.---</div></section>
+ </main>
+</div>
+
+<div class="panel" id="panel">
+ <h2>RPM-Anzeige einstellen</h2>
+ <div class="row"><label>Bereich 1 bis</label><input id="r1" type="number" min="1" value="5000"></div>
+ <div class="row"><label>Farbe Bereich 1</label><input id="c1" type="color" value="#00e676"></div>
+ <div class="row"><label>Bereich 2 bis</label><input id="r2" type="number" min="2" value="6500"></div>
+ <div class="row"><label>Farbe Bereich 2</label><input id="c2" type="color" value="#ffd400"></div>
+ <div class="row"><label>Bereich 3 bis</label><input id="r3" type="number" min="3" value="7200"></div>
+ <div class="row"><label>Farbe Bereich 3</label><input id="c3" type="color" value="#ff8f00"></div>
+ <div class="row"><label>Bereich 4 bis</label><input id="r4" type="number" min="4" value="9000"></div>
+ <div class="row"><label>Farbe Bereich 4</label><input id="c4" type="color" value="#ff3030"></div>
+ <button class="save" id="save">Speichern</button><button id="close">Schließen</button>
+ <div class="note">Ein Balken, vier einstellbare RPM-Bereiche. Die Einstellungen werden lokal im Browser gespeichert.</div>
 </div>
 
 <script>
-const $ = id => document.getElementById(id);
-const fmtTime = ms => {
-  if(ms == null || ms < 0) return "--:--.---";
-  const m = Math.floor(ms/60000);
-  const s = Math.floor((ms%60000)/1000);
-  const x = ms%1000;
-  return `${m}:${String(s).padStart(2,"0")}.${String(x).padStart(3,"0")}`;
-};
-const fmtDelta = ms => {
-  if(ms == null) return "0.000 s";
-  const sign = ms > 0 ? "+" : ms < 0 ? "−" : "";
-  return `${sign}${Math.abs(ms/1000).toFixed(3)} s`;
-};
-function set(id,v){$(id).textContent=v}
+const $=id=>document.getElementById(id);
+const defaults={r1:5000,r2:6500,r3:7200,r4:9000,c1:"#00e676",c2:"#ffd400",c3:"#ff8f00",c4:"#ff3030"};
+let cfg=JSON.parse(localStorage.getItem("sd_rpm_cfg")||"null")||defaults;
+function loadCfg(){Object.keys(defaults).forEach(k=>$(k).value=cfg[k])}
+loadCfg();
+
+function fmtTime(ms){
+ if(ms==null||ms<0)return"--:--.---";
+ const m=Math.floor(ms/60000),s=Math.floor(ms%60000/1000),x=ms%1000;
+ return `${m}:${String(s).padStart(2,"0")}.${String(x).padStart(3,"0")}`;
+}
+function fmtDelta(ms){
+ if(ms==null)return"0.000 s";
+ return `${ms>0?"+":ms<0?"−":""}${Math.abs(ms/1000).toFixed(3)} s`;
+}
+function rpmColor(rpm){
+ if(rpm<=cfg.r1)return cfg.c1;
+ if(rpm<=cfg.r2)return cfg.c2;
+ if(rpm<=cfg.r3)return cfg.c3;
+ return cfg.c4;
+}
 function update(d){
-  set("speed", Number(d.speed||0).toFixed(1));
-  set("gear", (d.gear||0)===0 ? "N" : d.gear);
-  set("rpm", Math.round(d.rpm||0));
-  set("throttle", `${Math.round(d.throttle||0)}%`);
-  set("brake", `${Math.round(d.brake||0)}%`);
-  set("fuel", Number(d.fuel||0).toFixed(1));
-  const fuelLaps = Number(d.fuel_laps);
-  set("fuelUnit", Number.isFinite(fuelLaps) && fuelLaps > 0
-    ? `Liter · ${fuelLaps.toFixed(1)} Runden`
-    : "Liter");
-  set("position", `${d.position||0}/${d.cars||0}`);
-  set("lap", `${d.lap||0}/${d.total_laps>0?d.total_laps:"?"}`);
-  set("bestLap", fmtTime(d.best_lap_ms));
-  set("lastLap", fmtTime(d.last_lap_ms));
-  set("currentLap", fmtTime(d.current_lap_ms));
-  set("mode", d.mode || "–");
-  set("reference", fmtTime(d.reference_ms));
-  set("delta", fmtDelta(d.delta_ms));
+ $("speed").textContent=Number(d.speed||0).toFixed(1);
+ $("gear").textContent=(d.gear||0)===0?"N":d.gear;
+ const rpm=Math.round(d.rpm||0);$("rpm").textContent=rpm;
+ $("throttle").textContent=Math.round(d.throttle||0)+"%";
+ $("brake").textContent=Math.round(d.brake||0)+"%";
+ $("fuel").textContent=Number(d.fuel||0).toFixed(1)+" L";
+ const laps=Number(d.fuel_laps);
+ $("fuelLaps").textContent=Number.isFinite(laps)&&laps>0?laps.toFixed(1)+" Runden":"– Runden";
+ $("position").textContent=(d.position||0)+"/"+(d.cars||0);
+ $("lap").textContent=(d.lap||0)+"/"+(d.total_laps>0?d.total_laps:"?");
+ $("bestLap").textContent=fmtTime(d.best_lap_ms);
+ $("lastLap").textContent=fmtTime(d.last_lap_ms);
+ $("currentLap").textContent=fmtTime(d.current_lap_ms);
 
-  $("throttleFill").style.width = `${Math.max(0,Math.min(100,d.throttle||0))}%`;
-  $("brakeFill").style.width = `${Math.max(0,Math.min(100,d.brake||0))}%`;
+ $("throttleFill").style.width=Math.max(0,Math.min(100,d.throttle||0))+"%";
+ $("brakeFill").style.width=Math.max(0,Math.min(100,d.brake||0))+"%";
 
-  // Vehicle-specific RPM end: learned automatically from the live limiter
-  // instead of using a fixed 9000 RPM scale.
-  const rpmLimit = Number(d.rpm_limit);
-  const rpmPct = Number.isFinite(rpmLimit) && rpmLimit > 0
-    ? Math.max(0,Math.min(100,(Number(d.rpm||0)/rpmLimit)*100))
-    : 0;
-  $("rpmFill").style.width = `${rpmPct}%`;
+ const maxRpm=Math.max(9000,cfg.r4);
+ const fill=$("rpmFill");
+ fill.style.width=Math.max(0,Math.min(100,rpm/maxRpm*100))+"%";
+ fill.style.background=rpmColor(rpm);
 
-  const live = $("live"), liveText=$("liveText");
-  live.className = "live " + (d.connected ? "on" : "off");
-  liveText.textContent = d.connected ? "LIVE" : "OFFLINE";
+ const live=$("live");live.className="status "+(d.connected?"on":"off");
+ $("liveText").textContent=d.connected?"LIVE":"OFFLINE";
 
-  const card=$("deltaCard");
-  card.classList.remove("faster","slower","equal");
-  const delta=d.delta_ms;
-  if(delta == null){card.classList.add("equal");set("deltaState","KEINE REFERENZ");}
-  else if(delta < -50){card.classList.add("faster");set("deltaState","SCHNELLER");}
-  else if(delta > 50){card.classList.add("slower");set("deltaState","LANGSAMER");}
-  else {card.classList.add("equal");set("deltaState","GLEICH");}
+ const card=$("deltaCard"),delta=d.delta_ms;
+ card.classList.remove("faster","slower","equal");
+ if(delta==null){card.classList.add("equal");$("deltaState").textContent="KEINE REFERENZ"}
+ else if(delta<-50){card.classList.add("faster");$("deltaState").textContent="SCHNELLER"}
+ else if(delta>50){card.classList.add("slower");$("deltaState").textContent="LANGSAMER"}
+ else{card.classList.add("equal");$("deltaState").textContent="GLEICH"}
+ $("delta").textContent=fmtDelta(delta);
+ $("reference").textContent=fmtTime(d.reference_ms);
 }
 async function poll(){
-  try{
-    const r=await fetch("/api?ts="+Date.now(),{cache:"no-store"});
-    if(!r.ok) throw new Error();
-    update(await r.json());
-  }catch(e){
-    $("live").className="live off";
-    $("liveText").textContent="OFFLINE";
-  }
-  setTimeout(poll,120);
+ try{
+  const r=await fetch("/api?ts="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw new Error();
+  update(await r.json());
+ }catch(e){
+  $("live").className="status off";
+  $("liveText").textContent="OFFLINE";
+ }
+ setTimeout(poll,120);
 }
+$("settingsBtn").onclick=()=>{loadCfg();$("panel").classList.add("open")};
+$("close").onclick=()=>$("panel").classList.remove("open");
+$("save").onclick=()=>{
+ const next={};
+ ["r1","r2","r3","r4"].forEach(k=>next[k]=Math.max(1,Number($(k).value)||defaults[k]));
+ ["c1","c2","c3","c4"].forEach(k=>next[k]=$(k).value);
+ if(!(next.r1<next.r2&&next.r2<next.r3&&next.r3<=next.r4)){alert("Die RPM-Grenzen müssen aufsteigend sein.");return}
+ cfg=next;localStorage.setItem("sd_rpm_cfg",JSON.stringify(cfg));$("panel").classList.remove("open");
+};
 poll();
 </script>
 </body>
