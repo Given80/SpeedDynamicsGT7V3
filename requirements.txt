@@ -1,2 +1,1 @@
-pycryptodome
-pyinstaller
+pycryptodome>=3.20
