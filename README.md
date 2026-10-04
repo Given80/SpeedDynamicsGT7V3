@@ -1,12 +1,15 @@
-# Speed Dynamics GT7
+[README.md](https://github.com/user-attachments/files/33030870/README.md)
+# Speed Dynamics GT7 – Final
 
-GT7 live telemetry dashboard.
+Enthält die vollständige aktuelle HTML-/Telemetry-Version.
 
-## Design lock
-The approved web design is frozen. Do not change the logo, typography, vehicle silhouette, header, cards, spacing, colors, RPM presentation, delta presentation, or responsive layout without explicit approval.
-
-## Run
-```bash
-pip install -r requirements.txt
-python SpeedDynamicsGT7.py
-```
+Änderungen:
+- Speed Dynamics Logo als echte Grafik
+- GT3-Fahrzeug-Silhouette als Grafik
+- FUEL zeigt Liter und verbleibende Runden direkt nebeneinander
+- verbleibende FUEL-Runden werden aus dem bisher gemessenen Verbrauch pro Runde berechnet
+- Runden-Delta bleibt dynamisch grün/rot/neutral
+- RPM-Balken mit konfigurierbaren 4 Farbbereichen
+- responsive Darstellung für PC und iPhone
+- echte `/api`-Live-Telemetrie bleibt erhalten
+- GT7 Packet C mit Fallback auf Packet A
