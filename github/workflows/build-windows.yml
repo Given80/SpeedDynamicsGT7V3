@@ -2,25 +2,91 @@ name: Build Windows EXE
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
+          cache: pip
+
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        shell: powershell
+        run: |
+          python -m pip install --upgrade pip
+          if (Test-Path "requirements.txt") {
+            python -m pip install -r requirements.txt
+          }
+          python -m pip install pyinstaller
+
+      - name: Verify project files
+        shell: powershell
+        run: |
+          if (!(Test-Path "SpeedDynamicsGT7.py")) {
+            Write-Error "SpeedDynamicsGT7.py fehlt."
+            exit 1
+          }
+
+          if (!(Test-Path "web\index.html")) {
+            Write-Error "web\index.html fehlt."
+            exit 1
+          }
+
+          if (!(Test-Path "web\speed_dynamics_logo.png")) {
+            Write-Error "web\speed_dynamics_logo.png fehlt."
+            exit 1
+          }
+
+          if (!(Test-Path "web\car_silhouette.png")) {
+            Write-Error "web\car_silhouette.png fehlt."
+            exit 1
+          }
+
+          if (!(Test-Path "web\gt7_mark.png")) {
+            Write-Error "web\gt7_mark.png fehlt."
+            exit 1
+          }
+
       - name: Build EXE
-        run: pyinstaller --onefile --noconsole --name SpeedDynamicsGT7 --add-data "web;web" SpeedDynamicsGT7.py
-      - name: Upload EXE
+        shell: powershell
+        run: |
+          python -m PyInstaller `
+            --clean `
+            --noconfirm `
+            --onefile `
+            --windowed `
+            --name SpeedDynamicsGT7 `
+            --add-data "web;web" `
+            SpeedDynamicsGT7.py
+
+      - name: Verify EXE
+        shell: powershell
+        run: |
+          if (!(Test-Path "dist\SpeedDynamicsGT7.exe")) {
+            Write-Error "EXE wurde nicht erstellt."
+            exit 1
+          }
+
+          Get-Item "dist\SpeedDynamicsGT7.exe" | Format-List Name,Length,FullName
+
+      - name: Upload Windows EXE
         uses: actions/upload-artifact@v4
         with:
           name: SpeedDynamicsGT7-Windows
           path: dist/SpeedDynamicsGT7.exe
+          if-no-files-found: error
+          retention-days: 30
